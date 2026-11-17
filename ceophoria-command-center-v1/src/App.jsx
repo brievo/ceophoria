@@ -297,3 +297,5 @@ function Issues({profile,notify}) {
     <section className="panel table-panel">{!items.length?<Empty text="Belum ada isu atau risiko tercatat."/>:<div className="table-scroll"><table><thead><tr><th>Isu</th><th>Divisi</th><th>Severity</th><th>Status</th><th>Dibuat</th></tr></thead><tbody>{items.map(i=><tr key={i.id}><td><b>{i.title}</b><small className="table-sub">{i.description}</small></td><td>{i.division?.name||"—"}</td><td><span className={`priority ${i.severity}`}>{priorityLabels[i.severity]}</span></td><td><select className="inline-select" value={i.status} onChange={e=>update(i.id,e.target.value)}><option value="open">Open</option><option value="in_progress">In Progress</option><option value="resolved">Resolved</option><option value="closed">Closed</option></select></td><td>{new Date(i.created_at).toLocaleDateString("id-ID")}</td></tr>)}</tbody></table></div>}</section>
   </>;
 }
+
+export default App;
