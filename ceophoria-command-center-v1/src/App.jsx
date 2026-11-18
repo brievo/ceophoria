@@ -7,16 +7,42 @@ import {
 } from "lucide-react";
 import { supabase, supabaseConfigured } from "./supabase";
 
-const EVENT_DATE = "2026-12-19";
-const fmtDate = (v) => v ? new Date(`${v}T00:00:00`).toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" }) : "—";
+const EVENT_DATE = "2026-12-19T15:00:00+07:00";
+
+const fmtDate = (v) =>
+  v
+    ? new Date(`${v}T00:00:00`).toLocaleDateString("id-ID", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+      })
+    : "—";
+
 const today = () => new Date().toISOString().slice(0, 10);
-const statusLabels = { backlog: "Backlog", todo: "To Do", in_progress: "In Progress", review: "Review", done: "Done" };
-const priorityLabels = { low: "Low", medium: "Medium", high: "High", critical: "Critical" };
+
+const statusLabels = {
+  backlog: "Backlog",
+  todo: "To Do",
+  in_progress: "In Progress",
+  review: "Review",
+  done: "Done"
+};
+
+const priorityLabels = {
+  low: "Low",
+  medium: "Medium",
+  high: "High",
+  critical: "Critical"
+};
 
 function daysUntil(date) {
-  const a = new Date(`${today()}T00:00:00`);
-  const b = new Date(`${date}T00:00:00`);
-  return Math.max(0, Math.ceil((b - a) / 86400000));
+  const target = new Date(date).getTime();
+  const now = Date.now();
+
+  return Math.max(
+    0,
+    Math.floor((target - now) / 86400000)
+  );
 }
 
 function App() {
